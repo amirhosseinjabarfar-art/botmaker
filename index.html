@@ -1434,6 +1434,249 @@ body{
 }
 
 /* =========================
+   CHAT
+========================= */
+
+.chat-page{
+    padding-bottom:90px;
+}
+
+.chat-wrapper{
+    max-width:900px;
+    margin:0 auto;
+}
+
+.chat-card{
+    background:rgba(255,255,255,.92);
+    border:1px solid #dce8f5;
+    border-radius:30px;
+    overflow:hidden;
+    box-shadow:
+        0 25px 70px rgba(42,73,110,.10),
+        0 0 50px rgba(22,119,255,.05);
+}
+
+.chat-head{
+    padding:22px 25px;
+    background:linear-gradient(135deg,#126df0,#00b9ff);
+    color:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    position:relative;
+    overflow:hidden;
+}
+
+.chat-head:before{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    background:#fff;
+    opacity:.08;
+    left:-80px;
+    top:-130px;
+    animation:chatGlow 5s infinite alternate;
+}
+
+@keyframes chatGlow{
+    to{
+        transform:scale(1.5);
+    }
+}
+
+.chat-head-info{
+    position:relative;
+    z-index:2;
+}
+
+.chat-head h3{
+    font-size:18px;
+}
+
+.chat-head p{
+    margin-top:5px;
+    font-size:9px;
+    color:rgba(255,255,255,.78);
+}
+
+.chat-online{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-size:9px;
+    font-weight:900;
+}
+
+.chat-online i{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#53ffb1;
+    box-shadow:0 0 15px #53ffb1;
+    animation:blink 1.2s infinite;
+}
+
+.chat-messages{
+    height:480px;
+    overflow-y:auto;
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    gap:11px;
+    background:
+        radial-gradient(circle at 10% 10%,rgba(22,119,255,.035),transparent 30%),
+        #f8fbff;
+}
+
+.chat-empty{
+    margin:auto;
+    text-align:center;
+    color:#8b9aae;
+    font-size:11px;
+}
+
+.chat-empty-icon{
+    font-size:42px;
+    margin-bottom:10px;
+    animation:chatFloat 3s infinite;
+}
+
+@keyframes chatFloat{
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+.chat-message{
+    max-width:75%;
+    padding:12px 15px;
+    border-radius:17px;
+    background:#fff;
+    border:1px solid #e1eaf5;
+    box-shadow:0 7px 22px rgba(42,73,110,.05);
+    animation:messageIn .3s ease;
+    align-self:flex-start;
+}
+
+@keyframes messageIn{
+    from{
+        opacity:0;
+        transform:translateY(10px) scale(.97);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.chat-message.me{
+    align-self:flex-end;
+    background:linear-gradient(135deg,#edf6ff,#f7fbff);
+    border-color:#cfe2ff;
+}
+
+.chat-user{
+    color:#1677ff;
+    font-size:10px;
+    font-weight:900;
+    margin-bottom:5px;
+}
+
+.chat-message.me .chat-user{
+    color:#126df0;
+}
+
+.chat-text{
+    color:#40536c;
+    font-size:11px;
+    line-height:1.9;
+    word-break:break-word;
+}
+
+.chat-time{
+    color:#9aa8b9;
+    font-size:7px;
+    margin-top:5px;
+}
+
+.chat-footer{
+    padding:18px;
+    background:#fff;
+    border-top:1px solid #e3ebf5;
+}
+
+.chat-name-row{
+    display:flex;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.chat-input{
+    width:100%;
+    border:1px solid #dce7f4;
+    outline:none;
+    background:#f7faff;
+    border-radius:12px;
+    padding:12px 14px;
+    font-family:inherit;
+    font-size:10px;
+    color:#24364f;
+    transition:.3s;
+}
+
+.chat-input:focus{
+    border-color:#9fc7ff;
+    background:#fff;
+    box-shadow:0 0 0 4px rgba(22,119,255,.06);
+}
+
+.chat-message-row{
+    display:flex;
+    gap:10px;
+}
+
+.chat-message-row .chat-input{
+    flex:1;
+}
+
+.chat-send{
+    min-width:100px;
+    border:0;
+    border-radius:12px;
+    background:linear-gradient(135deg,#126df0,#00b9ff);
+    color:#fff;
+    font-family:inherit;
+    font-size:10px;
+    font-weight:900;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.chat-send:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(22,119,255,.22);
+}
+
+.chat-send:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.chat-status{
+    text-align:center;
+    min-height:18px;
+    margin-top:8px;
+    color:#8191a5;
+    font-size:8px;
+}
+
+/* =========================
    MODAL
 ========================= */
 
@@ -1707,6 +1950,27 @@ footer{
         bottom:12px;
         text-align:center;
     }
+
+    .chat-messages{
+        height:430px;
+        padding:15px;
+    }
+
+    .chat-message{
+        max-width:88%;
+    }
+
+    .chat-head{
+        padding:18px;
+    }
+
+    .chat-message-row{
+        flex-direction:column;
+    }
+
+    .chat-send{
+        min-height:45px;
+    }
 }
 </style>
 </head>
@@ -1757,6 +2021,11 @@ footer{
                 تیکت
             </button>
 
+            <button data-page="chat"
+                    onclick="go('chat')">
+                💬 چت عمومی
+            </button>
+
             <button data-page="about"
                     onclick="go('about')">
                 درباره ما
@@ -1794,6 +2063,11 @@ footer{
         <button data-page="ticket"
                 onclick="go('ticket')">
             🎫 تیکت
+        </button>
+
+        <button data-page="chat"
+                onclick="go('chat')">
+            💬 چت عمومی
         </button>
 
         <button data-page="about"
@@ -1842,6 +2116,12 @@ footer{
                         onclick="go('store')"
                         type="button">
                     🛒 مشاهده فروشگاه
+                </button>
+
+                <button class="btn btn-light"
+                        onclick="go('chat')"
+                        type="button">
+                    💬 ورود به چت عمومی
                 </button>
 
             </div>
@@ -1903,8 +2183,6 @@ footer{
 
     </div>
 
-    <!-- بسته ها در پایین صفحه اصلی -->
-
     <div class="container">
 
         <div class="home-packages">
@@ -1922,8 +2200,6 @@ footer{
             </div>
 
             <div class="package-grid">
-
-                <!-- ربات عادی -->
 
                 <div class="home-package package-normal">
 
@@ -1979,8 +2255,6 @@ footer{
                     </button>
 
                 </div>
-
-                <!-- مدیریت گروه -->
 
                 <div class="home-package package-group">
 
@@ -2102,121 +2376,45 @@ footer{
             <div class="feature-grid">
 
                 <div class="feature">
-
-                    <div class="feature-icon">
-                        🤖
-                    </div>
-
-                    <h3>
-                        ساخت ربات روبیکا
-                    </h3>
-
-                    <p>
-                        ساخت ربات اختصاصی طبق نیاز شما
-                        توسط ربات میکر امیر
-                    </p>
-
+                    <div class="feature-icon">🤖</div>
+                    <h3>ساخت ربات روبیکا</h3>
+                    <p>ساخت ربات اختصاصی طبق نیاز شما توسط ربات میکر امیر</p>
                 </div>
 
                 <div class="feature">
-
-                    <div class="feature-icon">
-                        🛡️
-                    </div>
-
-                    <h3>
-                        مدیریت گروه
-                    </h3>
-
-                    <p>
-                        طراحی و ساخت ربات‌های مدیریت
-                        گروه با امکانات حرفه‌ای
-                    </p>
-
+                    <div class="feature-icon">🛡️</div>
+                    <h3>مدیریت گروه</h3>
+                    <p>طراحی و ساخت ربات‌های مدیریت گروه با امکانات حرفه‌ای</p>
                 </div>
 
                 <div class="feature">
-
-                    <div class="feature-icon">
-                        ⚡
-                    </div>
-
-                    <h3>
-                        سرویس سریع
-                    </h3>
-
-                    <p>
-                        ثبت درخواست و ارتباط مستقیم
-                        با پشتیبانی
-                    </p>
-
+                    <div class="feature-icon">⚡</div>
+                    <h3>سرویس سریع</h3>
+                    <p>ثبت درخواست و ارتباط مستقیم با پشتیبانی</p>
                 </div>
 
                 <div class="feature">
-
-                    <div class="feature-icon">
-                        🎫
-                    </div>
-
-                    <h3>
-                        سیستم تیکت
-                    </h3>
-
-                    <p>
-                        ارسال درخواست و پیگیری مشکلات
-                        از طریق سیستم تیکت
-                    </p>
-
+                    <div class="feature-icon">🎫</div>
+                    <h3>سیستم تیکت</h3>
+                    <p>ارسال درخواست و پیگیری مشکلات از طریق سیستم تیکت</p>
                 </div>
 
                 <div class="feature">
-
-                    <div class="feature-icon">
-                        📦
-                    </div>
-
-                    <h3>
-                        ربات آماده
-                    </h3>
-
-                    <p>
-                        دریافت ربات‌های آماده در قالب
-                        فایل JSON
-                    </p>
-
+                    <div class="feature-icon">📦</div>
+                    <h3>ربات آماده</h3>
+                    <p>دریافت ربات‌های آماده در قالب فایل JSON</p>
                 </div>
 
                 <div class="feature">
-
-                    <div class="feature-icon">
-                        💬
-                    </div>
-
-                    <h3>
-                        ارتباط مستقیم
-                    </h3>
-
-                    <p>
-                        برای سفارش ساخت ربات به
-                        @amirtbpedit پیام بدهید
-                    </p>
-
+                    <div class="feature-icon">💬</div>
+                    <h3>ارتباط مستقیم</h3>
+                    <p>برای سفارش ساخت ربات به @amirtbpedit پیام بدهید</p>
                 </div>
 
                 <div class="feature">
-
-                    <div class="feature-icon">
-                        🔵
-                    </div>
-
-                    <h3>
-                        ربات معمولی
-                    </h3>
-
-                    <p>
-                        ساخت ربات معمولی با قیمت
-                        ۶۰,۰۰۰ تومان
-                    </p>
+                    <div class="feature-icon">🔵</div>
+                    <h3>ربات معمولی</h3>
+                    <p>ساخت ربات معمولی با قیمت ۶۰,۰۰۰ تومان</p>
 
                     <button class="btn btn-blue"
                             style="margin-top:15px"
@@ -2224,23 +2422,12 @@ footer{
                             type="button">
                         سفارش
                     </button>
-
                 </div>
 
                 <div class="feature">
-
-                    <div class="feature-icon">
-                        👑
-                    </div>
-
-                    <h3>
-                        ربات مدیریت گروه
-                    </h3>
-
-                    <p>
-                        ساخت ربات مدیریت گروه حرفه‌ای
-                        با قیمت ۱۹۰,۰۰۰ تومان
-                    </p>
+                    <div class="feature-icon">👑</div>
+                    <h3>ربات مدیریت گروه</h3>
+                    <p>ساخت ربات مدیریت گروه حرفه‌ای با قیمت ۱۹۰,۰۰۰ تومان</p>
 
                     <button class="btn btn-blue"
                             style="margin-top:15px"
@@ -2248,7 +2435,6 @@ footer{
                             type="button">
                         سفارش
                     </button>
-
                 </div>
 
             </div>
@@ -2282,15 +2468,11 @@ footer{
         <div class="store-banner">
 
             <div>
-
-                <strong>
-                    🛒 فروشگاه ربات میکر امیر
-                </strong>
+                <strong>🛒 فروشگاه ربات میکر امیر</strong>
 
                 <p>
                     محصولات و سرویس‌های موجود برای سفارش
                 </p>
-
             </div>
 
             <span class="active-label">
@@ -2303,9 +2485,7 @@ footer{
 
             <div class="product product-blue">
 
-                <div class="product-icon">
-                    📢
-                </div>
+                <div class="product-icon">📢</div>
 
                 <span class="product-tag">
                     ADS / GROUP
@@ -2321,19 +2501,12 @@ footer{
 
                 <div class="price">
                     ۵۰,۰۰۰
-                    <small>
-                        تومان
-                    </small>
+                    <small>تومان</small>
                 </div>
 
                 <ul>
-                    <li>
-                        ارسال تبلیغات
-                    </li>
-
-                    <li>
-                        سرویس تبلیغاتی اختصاصی
-                    </li>
+                    <li>ارسال تبلیغات</li>
+                    <li>سرویس تبلیغاتی اختصاصی</li>
                 </ul>
 
                 <button class="btn btn-blue"
@@ -2346,9 +2519,7 @@ footer{
 
             <div class="product product-purple">
 
-                <div class="product-icon">
-                    💬
-                </div>
+                <div class="product-icon">💬</div>
 
                 <span class="product-tag">
                     ADS / PV
@@ -2364,21 +2535,12 @@ footer{
 
                 <div class="price">
                     ۱۰۰,۰۰۰
-                    <small>
-                        تومان
-                    </small>
+                    <small>تومان</small>
                 </div>
 
                 <ul>
-
-                    <li>
-                        ارسال تبلیغات PV
-                    </li>
-
-                    <li>
-                        سرویس تبلیغاتی
-                    </li>
-
+                    <li>ارسال تبلیغات PV</li>
+                    <li>سرویس تبلیغاتی</li>
                 </ul>
 
                 <button class="btn"
@@ -2392,9 +2554,7 @@ footer{
 
             <div class="product product-green">
 
-                <div class="product-icon">
-                    📦
-                </div>
+                <div class="product-icon">📦</div>
 
                 <span class="product-tag">
                     DIGITAL / JSON
@@ -2410,25 +2570,13 @@ footer{
 
                 <div class="price">
                     ۴۰,۰۰۰
-                    <small>
-                        تومان
-                    </small>
+                    <small>تومان</small>
                 </div>
 
                 <ul>
-
-                    <li>
-                        فایل JSON آماده
-                    </li>
-
-                    <li>
-                        محصول دیجیتال
-                    </li>
-
-                    <li>
-                        قابل استفاده در پروژه
-                    </li>
-
+                    <li>فایل JSON آماده</li>
+                    <li>محصول دیجیتال</li>
+                    <li>قابل استفاده در پروژه</li>
                 </ul>
 
                 <button class="btn"
@@ -2442,9 +2590,7 @@ footer{
 
             <div class="product product-gold">
 
-                <div class="product-icon">
-                    👑
-                </div>
+                <div class="product-icon">👑</div>
 
                 <span class="product-tag">
                     VIP SUPPORT
@@ -2460,25 +2606,13 @@ footer{
 
                 <div class="price">
                     ۱۰۰,۰۰۰
-                    <small>
-                        تومان
-                    </small>
+                    <small>تومان</small>
                 </div>
 
                 <ul>
-
-                    <li>
-                        اضافه کردن پشتیبانی
-                    </li>
-
-                    <li>
-                        حذف تبلیغات در گروه
-                    </li>
-
-                    <li>
-                        حذف تبلیغات در ربات
-                    </li>
-
+                    <li>اضافه کردن پشتیبانی</li>
+                    <li>حذف تبلیغات در گروه</li>
+                    <li>حذف تبلیغات در ربات</li>
                 </ul>
 
                 <button class="btn"
@@ -2670,6 +2804,123 @@ footer{
 
 </section>
 
+<!-- =========================
+     CHAT PAGE
+========================= -->
+
+<section class="page chat-page" id="page-chat">
+
+    <div class="container">
+
+        <div class="title">
+
+            <small>
+                PUBLIC CHAT
+            </small>
+
+            <h2>
+                چت عمومی
+            </h2>
+
+            <p>
+                با کاربران دیگر ربات میکر امیر گفتگو کنید
+            </p>
+
+        </div>
+
+        <div class="chat-wrapper">
+
+            <div class="chat-card">
+
+                <div class="chat-head">
+
+                    <div class="chat-head-info">
+
+                        <h3>
+                            💬 گفتگوی عمومی
+                        </h3>
+
+                        <p>
+                            پیام شما برای همه کاربران نمایش داده می‌شود
+                        </p>
+
+                    </div>
+
+                    <div class="chat-online">
+                        <i></i>
+                        آنلاین
+                    </div>
+
+                </div>
+
+                <div
+                    class="chat-messages"
+                    id="chatMessages">
+
+                    <div class="chat-empty"
+                         id="chatEmpty">
+
+                        <div class="chat-empty-icon">
+                            💬
+                        </div>
+
+                        هنوز پیامی ارسال نشده است
+                        <br>
+                        اولین پیام را شما بفرستید!
+
+                    </div>
+
+                </div>
+
+                <div class="chat-footer">
+
+                    <div class="chat-name-row">
+
+                        <input
+                            id="chatUsername"
+                            class="chat-input"
+                            type="text"
+                            maxlength="30"
+                            placeholder="نام کاربری شما"
+                            autocomplete="off">
+
+                    </div>
+
+                    <div class="chat-message-row">
+
+                        <input
+                            id="chatInput"
+                            class="chat-input"
+                            type="text"
+                            maxlength="500"
+                            placeholder="پیام خود را بنویسید..."
+                            autocomplete="off">
+
+                        <button
+                            id="chatSend"
+                            class="chat-send"
+                            onclick="sendChatMessage()"
+                            type="button">
+                            🚀 ارسال
+                        </button>
+
+                    </div>
+
+                    <div
+                        class="chat-status"
+                        id="chatStatus">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
 <section class="page" id="page-about">
 
     <div class="container">
@@ -2716,39 +2967,18 @@ footer{
                 <div class="stats">
 
                     <div class="stat">
-
-                        <strong>
-                            🤖
-                        </strong>
-
-                        <span>
-                            خدمات ربات
-                        </span>
-
+                        <strong>🤖</strong>
+                        <span>خدمات ربات</span>
                     </div>
 
                     <div class="stat">
-
-                        <strong>
-                            ⚡
-                        </strong>
-
-                        <span>
-                            سرویس سریع
-                        </span>
-
+                        <strong>⚡</strong>
+                        <span>سرویس سریع</span>
                     </div>
 
                     <div class="stat">
-
-                        <strong>
-                            🎫
-                        </strong>
-
-                        <span>
-                            پشتیبانی
-                        </span>
-
+                        <strong>🎫</strong>
+                        <span>پشتیبانی</span>
                     </div>
 
                 </div>
@@ -2838,6 +3068,10 @@ footer{
 
 <script>
 
+/* =========================
+   PARTICLES
+========================= */
+
 const particles =
     document.getElementById("particles");
 
@@ -2859,11 +3093,17 @@ for(let i=0;i<35;i++){
     particles.appendChild(p);
 }
 
+
+/* =========================
+   PAGE SYSTEM
+========================= */
+
 const allowedPages=[
     "home",
     "features",
     "store",
     "ticket",
+    "chat",
     "about"
 ];
 
@@ -2878,6 +3118,11 @@ function go(page){
     renderPage(page);
 
     closeMobileMenu();
+
+    if(page==="chat"){
+        loadChatMessages();
+    }
+
 }
 
 function renderPage(page){
@@ -2924,6 +3169,7 @@ function renderPage(page){
         top:0,
         behavior:"smooth"
     });
+
 }
 
 function handleHash(){
@@ -2938,12 +3184,18 @@ function handleHash(){
     }
 
     renderPage(page);
+
 }
 
 window.addEventListener(
     "hashchange",
     handleHash
 );
+
+
+/* =========================
+   MOBILE MENU
+========================= */
 
 function toggleMobileMenu(){
 
@@ -2961,8 +3213,9 @@ function closeMobileMenu(){
 
 }
 
+
 /* =========================
-   ارتباط با خود امیر
+   RUBIKA
 ========================= */
 
 function contactForBot(){
@@ -2976,6 +3229,7 @@ function contactForBot(){
     showToast(
         "برای سفارش به @amirtbpedit پیام دهید"
     );
+
 }
 
 let selectedOrder={
@@ -3024,6 +3278,7 @@ function continueOrder(){
 
 }
 
+
 /* =========================
    BASEROW TICKET
 ========================= */
@@ -3067,6 +3322,660 @@ function renderTickets(){
 
 }
 
+
+/* ==================================================
+   SUPABASE PUBLIC CHAT
+================================================== */
+
+/*
+    اطلاعات پروژه Supabase
+*/
+
+const SUPABASE_URL =
+    "https://hklpojeahcvnmjwswbio.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_q2PwsTfhkXOP70UxhwUBiA_p1KYoanJ";
+
+
+/*
+    نام جدول چت
+*/
+
+const CHAT_TABLE =
+    "messages";
+
+
+/*
+    API اصلی جدول
+*/
+
+const CHAT_API =
+    SUPABASE_URL +
+    "/rest/v1/" +
+    CHAT_TABLE;
+
+
+/*
+    هدرهای Supabase
+*/
+
+function supabaseHeaders(){
+
+    return {
+
+        "apikey":
+            SUPABASE_KEY,
+
+        "Authorization":
+            "Bearer " + SUPABASE_KEY,
+
+        "Content-Type":
+            "application/json",
+
+        "Prefer":
+            "return=representation"
+
+    };
+
+}
+
+
+/*
+    فرار دادن HTML
+    برای جلوگیری از وارد کردن HTML
+*/
+
+function escapeHTML(text){
+
+    const div=
+        document.createElement("div");
+
+    div.textContent=text;
+
+    return div.innerHTML;
+
+}
+
+
+/*
+    تبدیل تاریخ به ساعت
+*/
+
+function formatChatTime(date){
+
+    try{
+
+        return new Date(date)
+            .toLocaleTimeString(
+                "fa-IR",
+                {
+                    hour:"2-digit",
+                    minute:"2-digit"
+                }
+            );
+
+    }catch(error){
+
+        return "";
+
+    }
+
+}
+
+
+/*
+    گرفتن نام ذخیره شده
+*/
+
+function getSavedUsername(){
+
+    return localStorage.getItem(
+        "amir_chat_username"
+    ) || "";
+
+}
+
+
+/*
+    ذخیره نام کاربری
+*/
+
+function saveUsername(){
+
+    const input=
+        document.getElementById(
+            "chatUsername"
+        );
+
+    if(!input){
+        return;
+    }
+
+    const username=
+        input.value.trim();
+
+    if(username){
+
+        localStorage.setItem(
+            "amir_chat_username",
+            username
+        );
+
+    }
+
+}
+
+
+/*
+    نمایش پیام
+*/
+
+function addChatMessage(row){
+
+    const container=
+        document.getElementById(
+            "chatMessages"
+        );
+
+    const empty=
+        document.getElementById(
+            "chatEmpty"
+        );
+
+    if(!container || !row){
+        return;
+    }
+
+    if(empty){
+        empty.remove();
+    }
+
+    const username=
+        row.username || "کاربر";
+
+    const message=
+        row.message || "";
+
+    const time=
+        formatChatTime(
+            row.created_at || new Date()
+        );
+
+    const currentUser=
+        getSavedUsername();
+
+    const div=
+        document.createElement("div");
+
+    div.className=
+        "chat-message";
+
+    if(
+        currentUser &&
+        username===currentUser
+    ){
+
+        div.classList.add("me");
+
+    }
+
+    div.innerHTML=`
+
+        <div class="chat-user">
+            👤 ${escapeHTML(username)}
+        </div>
+
+        <div class="chat-text">
+            ${escapeHTML(message)}
+        </div>
+
+        <div class="chat-time">
+            ${time}
+        </div>
+
+    `;
+
+    container.appendChild(div);
+
+    container.scrollTop=
+        container.scrollHeight;
+
+}
+
+
+/*
+    نمایش همه پیام‌ها
+*/
+
+function renderChatMessages(rows){
+
+    const container=
+        document.getElementById(
+            "chatMessages"
+        );
+
+    if(!container){
+        return;
+    }
+
+    container.innerHTML="";
+
+    if(!rows || rows.length===0){
+
+        container.innerHTML=`
+
+            <div class="chat-empty"
+                 id="chatEmpty">
+
+                <div class="chat-empty-icon">
+                    💬
+                </div>
+
+                هنوز پیامی ارسال نشده است
+                <br>
+                اولین پیام را شما بفرستید!
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    rows.forEach(row=>{
+        addChatMessage(row);
+    });
+
+}
+
+
+/*
+    گرفتن پیام‌ها از Supabase
+*/
+
+async function loadChatMessages(){
+
+    const status=
+        document.getElementById(
+            "chatStatus"
+        );
+
+    try{
+
+        if(status){
+
+            status.textContent=
+                "در حال دریافت پیام‌ها...";
+
+        }
+
+        const response=
+            await fetch(
+                CHAT_API +
+                "?select=id,username,message,created_at" +
+                "&order=created_at.asc" +
+                "&limit=200",
+                {
+                    method:"GET",
+                    headers:supabaseHeaders()
+                }
+            );
+
+        if(!response.ok){
+
+            const errorText=
+                await response.text();
+
+            throw new Error(
+                errorText ||
+                "خطا در دریافت پیام‌ها"
+            );
+
+        }
+
+        const rows=
+            await response.json();
+
+        renderChatMessages(rows);
+
+        if(status){
+
+            status.textContent=
+                "";
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "CHAT LOAD ERROR:",
+            error
+        );
+
+        if(status){
+
+            status.textContent=
+                "❌ اتصال به چت برقرار نشد";
+
+        }
+
+    }
+
+}
+
+
+/*
+    ارسال پیام
+*/
+
+async function sendChatMessage(){
+
+    const usernameInput=
+        document.getElementById(
+            "chatUsername"
+        );
+
+    const messageInput=
+        document.getElementById(
+            "chatInput"
+        );
+
+    const sendButton=
+        document.getElementById(
+            "chatSend"
+        );
+
+    const status=
+        document.getElementById(
+            "chatStatus"
+        );
+
+    if(
+        !usernameInput ||
+        !messageInput ||
+        !sendButton
+    ){
+
+        return;
+
+    }
+
+
+    const username=
+        usernameInput.value.trim();
+
+    const message=
+        messageInput.value.trim();
+
+
+    /*
+        جلوگیری از نام خالی
+    */
+
+    if(!username){
+
+        if(status){
+
+            status.textContent=
+                "⚠️ ابتدا نام کاربری خود را وارد کنید";
+
+        }
+
+        usernameInput.focus();
+
+        return;
+
+    }
+
+
+    /*
+        جلوگیری از پیام خالی
+    */
+
+    if(!message){
+
+        if(status){
+
+            status.textContent=
+                "⚠️ پیام نمی‌تواند خالی باشد";
+
+        }
+
+        messageInput.focus();
+
+        return;
+
+    }
+
+
+    /*
+        ذخیره نام
+    */
+
+    localStorage.setItem(
+        "amir_chat_username",
+        username
+    );
+
+
+    /*
+        جلوگیری از ارسال چندباره
+    */
+
+    sendButton.disabled=true;
+
+    sendButton.textContent=
+        "⏳";
+
+
+    if(status){
+
+        status.textContent=
+            "در حال ارسال...";
+
+    }
+
+
+    try{
+
+        const response=
+            await fetch(
+                CHAT_API,
+                {
+                    method:"POST",
+
+                    headers:supabaseHeaders(),
+
+                    body:JSON.stringify({
+
+                        username:username,
+
+                        message:message
+
+                    })
+
+                }
+            );
+
+
+        if(!response.ok){
+
+            const errorText=
+                await response.text();
+
+            throw new Error(
+                errorText ||
+                "خطا در ارسال پیام"
+            );
+
+        }
+
+
+        const result=
+            await response.json();
+
+
+        /*
+            پاک کردن پیام
+        */
+
+        messageInput.value="";
+
+
+        /*
+            نمایش فوری پیام
+        */
+
+        if(
+            Array.isArray(result) &&
+            result.length>0
+        ){
+
+            addChatMessage(
+                result[0]
+            );
+
+        }else{
+
+            await loadChatMessages();
+
+        }
+
+
+        if(status){
+
+            status.textContent=
+                "✓ پیام ارسال شد";
+
+        }
+
+
+        setTimeout(()=>{
+
+            if(status){
+
+                status.textContent="";
+
+            }
+
+        },2000);
+
+
+    }catch(error){
+
+        console.error(
+            "CHAT SEND ERROR:",
+            error
+        );
+
+        if(status){
+
+            status.textContent=
+                "❌ ارسال پیام انجام نشد";
+
+        }
+
+    }finally{
+
+        sendButton.disabled=false;
+
+        sendButton.textContent=
+            "🚀 ارسال";
+
+    }
+
+}
+
+
+/*
+    ارسال با Enter
+*/
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key==="Enter" &&
+            document.activeElement &&
+            document.activeElement.id==="chatInput"
+        ){
+
+            event.preventDefault();
+
+            sendChatMessage();
+
+        }
+
+    }
+);
+
+
+/*
+    قرار دادن نام ذخیره شده
+*/
+
+function loadSavedUsername(){
+
+    const input=
+        document.getElementById(
+            "chatUsername"
+        );
+
+    if(!input){
+        return;
+    }
+
+    input.value=
+        getSavedUsername();
+
+}
+
+
+/*
+    رفرش خودکار چت
+    هر 5 ثانیه پیام‌های جدید را بررسی می‌کند
+*/
+
+let chatRefreshTimer=null;
+
+function startChatRefresh(){
+
+    if(chatRefreshTimer){
+        clearInterval(chatRefreshTimer);
+    }
+
+    chatRefreshTimer=
+        setInterval(
+            async function(){
+
+                const chatPage=
+                    document.getElementById(
+                        "page-chat"
+                    );
+
+                if(
+                    chatPage &&
+                    chatPage.classList.contains("active")
+                ){
+
+                    await loadChatMessages();
+
+                }
+
+            },
+            5000
+        );
+
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
 document.getElementById("orderModal")
     .addEventListener(
         "click",
@@ -3079,27 +3988,44 @@ document.getElementById("orderModal")
         }
     );
 
+
+/* =========================
+   KEYBOARD
+========================= */
+
 document.addEventListener(
     "keydown",
     function(event){
 
         if(event.key==="Escape"){
+
             closeOrder();
+
             closeMobileMenu();
+
         }
 
     }
 );
+
+
+/* =========================
+   OUTSIDE MOBILE MENU
+========================= */
 
 document.addEventListener(
     "click",
     function(event){
 
         const menu=
-            document.getElementById("mobileMenu");
+            document.getElementById(
+                "mobileMenu"
+            );
 
         const button=
-            document.getElementById("mobileMenuBtn");
+            document.getElementById(
+                "mobileMenuBtn"
+            );
 
         if(
             menu.classList.contains("show") &&
@@ -3114,12 +4040,19 @@ document.addEventListener(
     }
 );
 
+
+/* =========================
+   TOAST
+========================= */
+
 let toastTimer=null;
 
 function showToast(message){
 
     const toast=
-        document.getElementById("toast");
+        document.getElementById(
+            "toast"
+        );
 
     toast.textContent=message;
 
@@ -3135,6 +4068,11 @@ function showToast(message){
 
 }
 
+
+/* =========================
+   START
+========================= */
+
 document.addEventListener(
     "DOMContentLoaded",
     function(){
@@ -3149,9 +4087,13 @@ document.addEventListener(
 
         }
 
+        loadSavedUsername();
+
         handleHash();
 
         renderTickets();
+
+        startChatRefresh();
 
     }
 );
