@@ -367,7 +367,7 @@ body{
     grid-template-columns:1.05fr .95fr;
     align-items:center;
     gap:55px;
-    padding-bottom:50px;
+    padding-bottom:30px;
 }
 
 .home-text{
@@ -564,6 +564,256 @@ body{
     box-shadow:0 8px 25px rgba(22,119,255,.08);
 }
 
+/* =========================
+   HOME PACKAGES
+========================= */
+
+.home-packages{
+    margin-top:25px;
+    padding:10px 0 80px;
+}
+
+.home-packages-title{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.home-packages-title small{
+    color:#1677ff;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.home-packages-title h2{
+    font-size:27px;
+    margin-top:7px;
+    color:#12233d;
+}
+
+.package-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.home-package{
+    position:relative;
+    overflow:hidden;
+    padding:28px;
+    border-radius:27px;
+    background:#fff;
+    border:1px solid #dce8f5;
+    box-shadow:0 15px 45px rgba(42,73,110,.08);
+    transition:.45s;
+    animation:packageFloat 5s ease-in-out infinite;
+}
+
+.home-package:nth-child(2){
+    animation-delay:1.2s;
+}
+
+@keyframes packageFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-7px);
+    }
+}
+
+.home-package:before{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    background:var(--package-color);
+    filter:blur(75px);
+    opacity:.09;
+    left:-100px;
+    bottom:-120px;
+    transition:.5s;
+}
+
+.home-package:after{
+    content:"";
+    position:absolute;
+    top:-120%;
+    right:-30%;
+    width:60%;
+    height:300%;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.6),
+        transparent
+    );
+    transform:rotate(25deg);
+    animation:packageShine 5s infinite;
+    pointer-events:none;
+}
+
+@keyframes packageShine{
+    0%,55%{
+        right:-80%;
+    }
+    75%,100%{
+        right:130%;
+    }
+}
+
+.home-package:hover{
+    transform:translateY(-12px) scale(1.015);
+    box-shadow:
+        0 30px 70px rgba(35,70,110,.14),
+        0 0 35px var(--package-shadow);
+}
+
+.home-package:hover:before{
+    opacity:.22;
+    transform:scale(1.3);
+}
+
+.package-normal{
+    --package-color:#1677ff;
+    --package-shadow:rgba(22,119,255,.18);
+}
+
+.package-group{
+    --package-color:#8757ff;
+    --package-shadow:rgba(135,87,255,.18);
+}
+
+.package-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:relative;
+    z-index:2;
+}
+
+.package-icon{
+    width:58px;
+    height:58px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:27px;
+    background:rgba(22,119,255,.08);
+    color:var(--package-color);
+    border:1px solid rgba(22,119,255,.15);
+    box-shadow:0 10px 25px rgba(22,119,255,.08);
+    animation:iconPulse 2.5s infinite;
+}
+
+.package-group .package-icon{
+    background:rgba(135,87,255,.08);
+    border-color:rgba(135,87,255,.18);
+}
+
+@keyframes iconPulse{
+    50%{
+        transform:translateY(-4px) rotate(3deg);
+        box-shadow:0 15px 30px rgba(22,119,255,.16);
+    }
+}
+
+.package-label{
+    padding:7px 10px;
+    border-radius:100px;
+    color:var(--package-color);
+    background:rgba(22,119,255,.06);
+    border:1px solid rgba(22,119,255,.13);
+    font-size:8px;
+    font-weight:900;
+}
+
+.package-group .package-label{
+    background:rgba(135,87,255,.06);
+    border-color:rgba(135,87,255,.15);
+}
+
+.home-package h3{
+    position:relative;
+    z-index:2;
+    margin-top:17px;
+    font-size:20px;
+}
+
+.home-package p{
+    position:relative;
+    z-index:2;
+    color:#718197;
+    font-size:11px;
+    line-height:2;
+    margin-top:7px;
+}
+
+.package-price{
+    position:relative;
+    z-index:2;
+    margin:17px 0 12px;
+    color:var(--package-color);
+    font-size:29px;
+    font-weight:900;
+}
+
+.package-price small{
+    color:#78889c;
+    font-size:10px;
+}
+
+.package-features{
+    position:relative;
+    z-index:2;
+    list-style:none;
+    margin-bottom:18px;
+}
+
+.package-features li{
+    color:#657890;
+    font-size:10px;
+    padding:6px 0;
+}
+
+.package-features li:before{
+    content:"✓";
+    color:var(--package-color);
+    font-weight:900;
+    margin-left:7px;
+}
+
+.package-button{
+    position:relative;
+    z-index:2;
+    width:100%;
+    border:0;
+    padding:13px;
+    border-radius:12px;
+    color:#fff;
+    background:linear-gradient(135deg,#126df0,#00b9ff);
+    font-family:inherit;
+    font-size:11px;
+    font-weight:900;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.package-group .package-button{
+    background:linear-gradient(135deg,#7545ed,#a16dff);
+}
+
+.package-button:hover{
+    transform:translateY(-4px);
+    box-shadow:0 14px 30px var(--package-shadow);
+}
+
+/* =========================
+   FEATURES
+========================= */
+
 .feature-layout{
     display:grid;
     grid-template-columns:275px 1fr;
@@ -707,6 +957,10 @@ body{
     line-height:1.9;
     margin-top:8px;
 }
+
+/* =========================
+   STORE
+========================= */
 
 .store{
     padding-bottom:90px;
@@ -930,6 +1184,10 @@ body{
     width:100%;
 }
 
+/* =========================
+   TICKET
+========================= */
+
 .ticket-page{
     padding-bottom:90px;
 }
@@ -1035,52 +1293,6 @@ body{
     box-shadow:0 15px 45px rgba(42,73,110,.07);
 }
 
-.form-row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
-}
-
-.field{
-    margin-bottom:15px;
-}
-
-.field label{
-    display:block;
-    color:#445a74;
-    font-size:10px;
-    font-weight:900;
-    margin-bottom:7px;
-}
-
-.field input,
-.field textarea,
-.field select{
-    width:100%;
-    padding:13px;
-    border:1px solid #dce7f3;
-    background:#f9fbfe;
-    border-radius:12px;
-    color:#253b57;
-    outline:none;
-    font-family:inherit;
-    font-size:11px;
-    transition:.3s;
-}
-
-.field textarea{
-    min-height:165px;
-    resize:vertical;
-}
-
-.field input:focus,
-.field textarea:focus,
-.field select:focus{
-    border-color:#6aa9ff;
-    background:#fff;
-    box-shadow:0 0 0 4px rgba(22,119,255,.07);
-}
-
 .ticket-history{
     max-width:1000px;
     margin:25px auto 0;
@@ -1151,6 +1363,10 @@ body{
     margin-top:10px;
 }
 
+/* =========================
+   ABOUT
+========================= */
+
 .about{
     max-width:950px;
     margin:auto;
@@ -1216,6 +1432,10 @@ body{
     color:#718197;
     font-size:9px;
 }
+
+/* =========================
+   MODAL
+========================= */
 
 .order-modal{
     display:none;
@@ -1454,17 +1674,14 @@ footer{
     }
 
     .feature-grid,
-    .store-grid{
+    .store-grid,
+    .package-grid{
         grid-template-columns:1fr;
     }
 
     .store-banner{
         flex-direction:column;
         align-items:flex-start;
-    }
-
-    .form-row{
-        grid-template-columns:1fr;
     }
 
     .ticket-form{
@@ -1686,6 +1903,146 @@ footer{
 
     </div>
 
+    <!-- بسته ها در پایین صفحه اصلی -->
+
+    <div class="container">
+
+        <div class="home-packages">
+
+            <div class="home-packages-title">
+
+                <small>
+                    BOT PACKAGES
+                </small>
+
+                <h2>
+                    بسته‌های ساخت ربات
+                </h2>
+
+            </div>
+
+            <div class="package-grid">
+
+                <!-- ربات عادی -->
+
+                <div class="home-package package-normal">
+
+                    <div class="package-top">
+
+                        <div class="package-icon">
+                            🤖
+                        </div>
+
+                        <span class="package-label">
+                            NORMAL BOT
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        ساخت ربات عادی
+                    </h3>
+
+                    <p>
+                        ساخت ربات روبیکا با امکانات مورد نیاز
+                        و طراحی اختصاصی
+                    </p>
+
+                    <div class="package-price">
+                        ۶۰,۰۰۰
+                        <small>
+                            تومان
+                        </small>
+                    </div>
+
+                    <ul class="package-features">
+
+                        <li>
+                            ساخت ربات اختصاصی
+                        </li>
+
+                        <li>
+                            اجرای دستورات مورد نیاز
+                        </li>
+
+                        <li>
+                            مناسب برای ربات‌های معمولی
+                        </li>
+
+                    </ul>
+
+                    <button
+                        class="package-button"
+                        onclick="contactForBot()"
+                        type="button">
+                        🤖 سفارش ساخت ربات
+                    </button>
+
+                </div>
+
+                <!-- مدیریت گروه -->
+
+                <div class="home-package package-group">
+
+                    <div class="package-top">
+
+                        <div class="package-icon">
+                            👑
+                        </div>
+
+                        <span class="package-label">
+                            GROUP MANAGEMENT
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        ساخت ربات مدیریت گروه
+                    </h3>
+
+                    <p>
+                        ربات حرفه‌ای مدیریت گروه روبیکا
+                        با امکانات مدیریتی کامل
+                    </p>
+
+                    <div class="package-price">
+                        ۱۹۰,۰۰۰
+                        <small>
+                            تومان
+                        </small>
+                    </div>
+
+                    <ul class="package-features">
+
+                        <li>
+                            مدیریت حرفه‌ای گروه
+                        </li>
+
+                        <li>
+                            دستورات مدیریتی اختصاصی
+                        </li>
+
+                        <li>
+                            مناسب گروه‌های روبیکا
+                        </li>
+
+                    </ul>
+
+                    <button
+                        class="package-button"
+                        onclick="contactForBot()"
+                        type="button">
+                        👑 سفارش ربات مدیریت گروه
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
 
 <section class="page" id="page-features">
@@ -1728,7 +2085,7 @@ footer{
                     </strong>
 
                     <span>
-                        ربات مدیریت گروه
+                        @jabarfarbot
                     </span>
 
                     <a href="https://rubika.ir/jabarfarbot"
@@ -2603,6 +2960,10 @@ function closeMobileMenu(){
         .classList.remove("show");
 
 }
+
+/* =========================
+   ارتباط با خود امیر
+========================= */
 
 function contactForBot(){
 
