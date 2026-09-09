@@ -1,0 +1,2801 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>ربات میکر امیر</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --blue:#1677ff;
+    --blue2:#00bfff;
+    --dark:#10213b;
+    --text:#17243a;
+    --muted:#718096;
+    --bg:#f4f8ff;
+    --white:#fff;
+    --line:#e4ecf7;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Vazirmatn,Tahoma,sans-serif;
+    background:
+        radial-gradient(circle at 10% 10%,rgba(22,119,255,.08),transparent 28%),
+        radial-gradient(circle at 90% 80%,rgba(0,191,255,.07),transparent 28%),
+        #f5f8fd;
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+.bg{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-10;
+    overflow:hidden;
+}
+
+.bg-grid{
+    position:absolute;
+    inset:0;
+    opacity:.35;
+    background-image:
+        linear-gradient(rgba(22,119,255,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(22,119,255,.035) 1px,transparent 1px);
+    background-size:55px 55px;
+    mask-image:linear-gradient(to bottom,black,transparent 80%);
+}
+
+.orb{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(80px);
+    animation:orbMove 12s ease-in-out infinite alternate;
+}
+
+.orb1{
+    width:330px;
+    height:330px;
+    background:#4ba0ff;
+    opacity:.12;
+    top:-130px;
+    right:-100px;
+}
+
+.orb2{
+    width:280px;
+    height:280px;
+    background:#00c8ff;
+    opacity:.10;
+    bottom:-100px;
+    left:-80px;
+    animation-delay:2s;
+}
+
+@keyframes orbMove{
+    0%{transform:translate(0,0) scale(1)}
+    50%{transform:translate(-40px,35px) scale(1.15)}
+    100%{transform:translate(30px,-20px) scale(.95)}
+}
+
+.particles{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-2;
+}
+
+.particle{
+    position:absolute;
+    width:4px;
+    height:4px;
+    border-radius:50%;
+    background:#1687ff;
+    box-shadow:0 0 12px rgba(22,119,255,.7);
+    opacity:.35;
+    animation:floatParticle linear infinite;
+}
+
+@keyframes floatParticle{
+    from{
+        transform:translateY(110vh);
+    }
+    to{
+        transform:translateY(-15vh);
+    }
+}
+
+.header{
+    position:fixed;
+    top:15px;
+    left:0;
+    right:0;
+    z-index:500;
+    padding:0 18px;
+}
+
+.navbar{
+    width:min(1250px,100%);
+    height:70px;
+    margin:auto;
+    padding:8px 18px;
+    background:rgba(255,255,255,.88);
+    backdrop-filter:blur(22px);
+    border:1px solid rgba(210,224,242,.9);
+    border-radius:20px;
+    box-shadow:
+        0 15px 50px rgba(40,74,120,.10),
+        inset 0 1px rgba(255,255,255,.9);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    cursor:pointer;
+    user-select:none;
+}
+
+.logo{
+    width:45px;
+    height:45px;
+    border-radius:14px;
+    background:linear-gradient(135deg,#1677ff,#00bfff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    font-size:22px;
+    box-shadow:0 9px 25px rgba(22,119,255,.25);
+    animation:logoPulse 3s infinite;
+}
+
+@keyframes logoPulse{
+    50%{
+        box-shadow:
+            0 10px 35px rgba(22,119,255,.4),
+            0 0 25px rgba(0,191,255,.2);
+        transform:translateY(-2px);
+    }
+}
+
+.brand-name{
+    font-size:16px;
+    font-weight:900;
+    white-space:nowrap;
+}
+
+.brand-name span{
+    color:#1677ff;
+}
+
+.menu{
+    display:flex;
+    align-items:center;
+    gap:3px;
+}
+
+.menu button{
+    border:0;
+    background:transparent;
+    color:#6f7f95;
+    padding:11px 14px;
+    border-radius:11px;
+    font-family:inherit;
+    font-size:12px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.menu button:hover{
+    background:#edf5ff;
+    color:#1677ff;
+}
+
+.menu button.active{
+    background:#eaf3ff;
+    color:#1677ff;
+    box-shadow:inset 0 -2px #1677ff;
+}
+
+.mobile-menu-btn{
+    display:none;
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:12px;
+    background:#edf5ff;
+    color:#1677ff;
+    font-size:21px;
+    cursor:pointer;
+}
+
+.mobile-menu{
+    display:none;
+    position:absolute;
+    top:78px;
+    left:9px;
+    right:9px;
+    padding:10px;
+    background:rgba(255,255,255,.97);
+    backdrop-filter:blur(20px);
+    border:1px solid #dce8f5;
+    border-radius:18px;
+    box-shadow:0 20px 50px rgba(35,70,110,.15);
+}
+
+.mobile-menu.show{
+    display:grid;
+}
+
+.mobile-menu button{
+    border:0;
+    background:transparent;
+    padding:14px;
+    text-align:right;
+    font-family:inherit;
+    font-size:12px;
+    font-weight:800;
+    color:#60738c;
+    border-radius:11px;
+    cursor:pointer;
+}
+
+.mobile-menu button:hover,
+.mobile-menu button.active{
+    background:#edf5ff;
+    color:#1677ff;
+}
+
+.btn{
+    border:0;
+    border-radius:12px;
+    padding:12px 17px;
+    font-family:inherit;
+    font-size:11px;
+    font-weight:900;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+.btn-blue{
+    color:#fff;
+    background:linear-gradient(135deg,#126df0,#00b9ff);
+    box-shadow:0 10px 25px rgba(22,119,255,.18);
+}
+
+.btn-blue:hover{
+    box-shadow:
+        0 14px 35px rgba(22,119,255,.3),
+        0 0 25px rgba(0,191,255,.2);
+}
+
+.btn-light{
+    color:#31506f;
+    background:#fff;
+    border:1px solid #dce7f4;
+}
+
+.btn-light:hover{
+    border-color:#a9caff;
+    color:#1677ff;
+}
+
+.page{
+    display:none;
+    min-height:100vh;
+    padding-top:115px;
+}
+
+.page.active{
+    display:block;
+    animation:pageIn .45s ease;
+}
+
+@keyframes pageIn{
+    from{
+        opacity:0;
+        transform:translateY(18px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.container{
+    width:min(1180px,calc(100% - 30px));
+    margin:auto;
+}
+
+.title{
+    text-align:center;
+    padding:38px 0 32px;
+}
+
+.title small{
+    display:inline-block;
+    color:#1677ff;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:2px;
+    background:#eaf3ff;
+    border:1px solid #d6e8ff;
+    padding:7px 11px;
+    border-radius:100px;
+}
+
+.title h2{
+    margin-top:12px;
+    font-size:37px;
+    font-weight:900;
+    color:#12233d;
+}
+
+.title p{
+    margin-top:8px;
+    color:#7a899d;
+    font-size:12px;
+}
+
+.home{
+    min-height:calc(100vh - 115px);
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    align-items:center;
+    gap:55px;
+    padding-bottom:50px;
+}
+
+.home-text{
+    order:2;
+}
+
+.home-visual{
+    order:1;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 13px;
+    border-radius:100px;
+    background:#edf6ff;
+    color:#1677ff;
+    border:1px solid #d7eaff;
+    font-size:10px;
+    font-weight:900;
+}
+
+.badge i{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#16c784;
+    box-shadow:0 0 12px #16c784;
+    animation:blink 1.3s infinite;
+}
+
+@keyframes blink{
+    50%{
+        transform:scale(1.6);
+        opacity:.5;
+    }
+}
+
+.home h1{
+    margin-top:22px;
+    font-size:clamp(42px,6vw,72px);
+    line-height:1.15;
+    font-weight:900;
+    letter-spacing:-3px;
+}
+
+.gradient-text{
+    background:linear-gradient(90deg,#126df0,#00aaff,#1677ff);
+    -webkit-background-clip:text;
+    color:transparent;
+    background-size:200%;
+    animation:gradientMove 4s linear infinite;
+}
+
+@keyframes gradientMove{
+    to{background-position:200%}
+}
+
+.home-desc{
+    max-width:600px;
+    color:#718198;
+    font-size:14px;
+    line-height:2.1;
+    margin-top:20px;
+}
+
+.home-actions{
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+    margin-top:27px;
+}
+
+.hero-stage{
+    height:510px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+}
+
+.hero-circle{
+    position:absolute;
+    border-radius:50%;
+    border:1px solid rgba(22,119,255,.14);
+}
+
+.c1{
+    width:430px;
+    height:430px;
+    animation:spin 20s linear infinite;
+}
+
+.c2{
+    width:340px;
+    height:340px;
+    border-style:dashed;
+    animation:spinReverse 13s linear infinite;
+}
+
+.c3{
+    width:250px;
+    height:250px;
+    animation:spin 9s linear infinite;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+@keyframes spinReverse{
+    to{transform:rotate(-360deg)}
+}
+
+.hero-card{
+    position:relative;
+    z-index:5;
+    width:300px;
+    min-height:350px;
+    padding:23px;
+    border-radius:28px;
+    background:rgba(255,255,255,.92);
+    border:1px solid #dbe7f5;
+    box-shadow:
+        0 35px 80px rgba(43,78,120,.17),
+        0 0 60px rgba(22,119,255,.08);
+    animation:heroFloat 4.5s ease-in-out infinite;
+}
+
+@keyframes heroFloat{
+    50%{
+        transform:translateY(-12px) rotate(1deg);
+    }
+}
+
+.hero-top{
+    display:flex;
+    justify-content:space-between;
+    color:#8493a7;
+    font-size:9px;
+    font-weight:800;
+}
+
+.hero-logo{
+    width:75px;
+    height:75px;
+    margin:22px auto 13px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:23px;
+    background:linear-gradient(135deg,#1677ff,#00c3ff);
+    color:white;
+    font-size:33px;
+    box-shadow:
+        0 15px 30px rgba(22,119,255,.25),
+        0 0 35px rgba(0,191,255,.18);
+}
+
+.hero-card h3{
+    text-align:center;
+    font-size:18px;
+}
+
+.online{
+    color:#13b977;
+    text-align:center;
+    font-size:9px;
+    margin-top:5px;
+    font-weight:800;
+}
+
+.hero-list{
+    display:grid;
+    gap:8px;
+    margin-top:24px;
+}
+
+.hero-item{
+    padding:11px 13px;
+    background:#f5f8fc;
+    border:1px solid #e5edf6;
+    border-radius:12px;
+    color:#60738c;
+    font-size:10px;
+    transition:.3s;
+}
+
+.hero-item:hover{
+    transform:translateX(-6px);
+    border-color:#9dc6ff;
+    color:#1677ff;
+    box-shadow:0 8px 25px rgba(22,119,255,.08);
+}
+
+.feature-layout{
+    display:grid;
+    grid-template-columns:275px 1fr;
+    gap:20px;
+    padding-bottom:80px;
+}
+
+.feature-side{
+    height:max-content;
+    position:sticky;
+    top:105px;
+    padding:25px;
+    border-radius:25px;
+    background:#fff;
+    border:1px solid #dfe9f5;
+    box-shadow:0 15px 45px rgba(45,75,110,.07);
+    overflow:hidden;
+}
+
+.side-line{
+    height:4px;
+    width:65px;
+    background:linear-gradient(90deg,#1677ff,#00c3ff);
+    border-radius:10px;
+    margin-bottom:18px;
+}
+
+.feature-side h3{
+    font-size:19px;
+}
+
+.feature-side p{
+    color:#75869c;
+    line-height:1.9;
+    font-size:11px;
+    margin-top:9px;
+}
+
+.bot-box{
+    margin-top:22px;
+    padding:16px;
+    border-radius:17px;
+    background:#f5f9ff;
+    border:1px solid #deebfa;
+}
+
+.bot-box strong{
+    display:block;
+    font-size:12px;
+}
+
+.bot-box span{
+    color:#7b8da4;
+    display:block;
+    font-size:9px;
+    margin-top:4px;
+}
+
+.bot-link{
+    display:block;
+    margin-top:13px;
+    padding:10px;
+    text-align:center;
+    color:#fff;
+    text-decoration:none;
+    background:linear-gradient(135deg,#126df0,#00b9ff);
+    border-radius:10px;
+    font-size:10px;
+    font-weight:900;
+    transition:.3s;
+}
+
+.bot-link:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 25px rgba(22,119,255,.2);
+}
+
+.feature-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+}
+
+.feature{
+    position:relative;
+    overflow:hidden;
+    padding:25px;
+    min-height:190px;
+    border-radius:22px;
+    background:#fff;
+    border:1px solid #e0e9f4;
+    box-shadow:0 12px 35px rgba(42,73,110,.05);
+    transition:.4s;
+}
+
+.feature:after{
+    content:"";
+    position:absolute;
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    background:#1677ff;
+    filter:blur(65px);
+    opacity:0;
+    top:-70px;
+    left:-60px;
+    transition:.4s;
+}
+
+.feature:hover{
+    transform:translateY(-8px);
+    border-color:#a9caff;
+    box-shadow:0 25px 60px rgba(42,73,110,.11);
+}
+
+.feature:hover:after{
+    opacity:.12;
+}
+
+.feature-icon{
+    width:50px;
+    height:50px;
+    border-radius:15px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#edf5ff;
+    color:#1677ff;
+    border:1px solid #d8e9ff;
+    font-size:22px;
+    margin-bottom:17px;
+}
+
+.feature h3{
+    font-size:15px;
+}
+
+.feature p{
+    color:#7b8a9e;
+    font-size:11px;
+    line-height:1.9;
+    margin-top:8px;
+}
+
+.store{
+    padding-bottom:90px;
+}
+
+.store-banner{
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:23px;
+    margin-bottom:20px;
+    border-radius:22px;
+    background:#fff;
+    border:1px solid #dce8f5;
+    box-shadow:0 12px 35px rgba(42,73,110,.05);
+}
+
+.store-banner:before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:#1687ff;
+    filter:blur(70px);
+    opacity:.08;
+    left:-80px;
+}
+
+.store-banner strong{
+    font-size:14px;
+}
+
+.store-banner p{
+    color:#7b8ba0;
+    font-size:10px;
+    margin-top:4px;
+}
+
+.active-label{
+    color:#10a96f;
+    background:#eafaf4;
+    border:1px solid #c9f1e0;
+    padding:7px 10px;
+    border-radius:100px;
+    font-size:9px;
+    font-weight:900;
+}
+
+.store-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.product{
+    position:relative;
+    overflow:hidden;
+    padding:28px;
+    border-radius:25px;
+    background:#fff;
+    border:1px solid var(--product-border,#dce8f5);
+    box-shadow:0 14px 40px rgba(35,70,110,.07);
+    transition:.45s;
+}
+
+.product:before{
+    content:"";
+    position:absolute;
+    width:230px;
+    height:230px;
+    border-radius:50%;
+    background:var(--product-color,#1677ff);
+    filter:blur(80px);
+    opacity:.07;
+    left:-130px;
+    bottom:-150px;
+    transition:.5s;
+}
+
+.product:hover{
+    transform:translateY(-10px);
+    box-shadow:
+        0 28px 70px rgba(35,70,110,.13),
+        0 0 35px var(--product-shadow,rgba(22,119,255,.1));
+    border-color:var(--product-color,#1677ff);
+}
+
+.product:hover:before{
+    opacity:.18;
+    transform:scale(1.25);
+}
+
+.product-blue{
+    --product-color:#1677ff;
+    --product-border:#cfe1ff;
+    --product-shadow:rgba(22,119,255,.14);
+}
+
+.product-purple{
+    --product-color:#8757ff;
+    --product-border:#e0d5ff;
+    --product-shadow:rgba(135,87,255,.14);
+}
+
+.product-green{
+    --product-color:#11b979;
+    --product-border:#ccefe1;
+    --product-shadow:rgba(17,185,121,.14);
+}
+
+.product-gold{
+    --product-color:#e2a900;
+    --product-border:#f3df9f;
+    --product-shadow:rgba(226,169,0,.18);
+    background:linear-gradient(145deg,#fff,#fffdf5);
+}
+
+.product-icon{
+    width:58px;
+    height:58px;
+    border-radius:17px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(22,119,255,.08);
+    color:var(--product-color);
+    border:1px solid rgba(22,119,255,.14);
+    font-size:24px;
+    margin-bottom:16px;
+    box-shadow:0 8px 20px rgba(22,119,255,.08);
+}
+
+.product-purple .product-icon{
+    background:rgba(135,87,255,.08);
+    border-color:rgba(135,87,255,.18);
+}
+
+.product-green .product-icon{
+    background:rgba(17,185,121,.08);
+    border-color:rgba(17,185,121,.18);
+}
+
+.product-gold .product-icon{
+    background:rgba(226,169,0,.10);
+    border-color:rgba(226,169,0,.2);
+}
+
+.product-tag{
+    display:inline-block;
+    color:var(--product-color);
+    background:rgba(22,119,255,.06);
+    border:1px solid rgba(22,119,255,.14);
+    padding:6px 9px;
+    border-radius:8px;
+    font-size:8px;
+    font-weight:900;
+}
+
+.product-purple .product-tag{
+    background:rgba(135,87,255,.07);
+    border-color:rgba(135,87,255,.16);
+}
+
+.product-green .product-tag{
+    background:rgba(17,185,121,.07);
+    border-color:rgba(17,185,121,.16);
+}
+
+.product-gold .product-tag{
+    background:rgba(226,169,0,.08);
+    border-color:rgba(226,169,0,.18);
+}
+
+.product h3{
+    margin-top:14px;
+    font-size:19px;
+}
+
+.product p{
+    color:#75869b;
+    font-size:11px;
+    line-height:1.9;
+    margin-top:7px;
+}
+
+.price{
+    margin:20px 0 13px;
+    font-size:29px;
+    color:var(--product-color);
+    font-weight:900;
+}
+
+.price small{
+    color:#78889c;
+    font-size:10px;
+}
+
+.product ul{
+    list-style:none;
+    margin-bottom:20px;
+}
+
+.product li{
+    color:#657890;
+    font-size:10px;
+    padding:6px 0;
+}
+
+.product li:before{
+    content:"✓";
+    color:var(--product-color);
+    font-weight:900;
+    margin-left:7px;
+}
+
+.product .btn{
+    width:100%;
+}
+
+.ticket-page{
+    padding-bottom:90px;
+}
+
+.ticket-system{
+    display:grid;
+    grid-template-columns:310px 1fr;
+    gap:20px;
+    max-width:1000px;
+    margin:auto;
+}
+
+.ticket-info{
+    position:relative;
+    overflow:hidden;
+    padding:30px;
+    border-radius:27px;
+    color:#fff;
+    background:linear-gradient(145deg,#126df0,#0871db);
+    box-shadow:0 25px 60px rgba(22,119,255,.18);
+}
+
+.ticket-info:before{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    background:#00d5ff;
+    filter:blur(70px);
+    opacity:.25;
+    left:-100px;
+    bottom:-100px;
+    animation:ticketLight 5s infinite alternate;
+}
+
+@keyframes ticketLight{
+    to{
+        transform:scale(1.5);
+        opacity:.4;
+    }
+}
+
+.ticket-icon{
+    width:70px;
+    height:70px;
+    border-radius:22px;
+    background:rgba(255,255,255,.16);
+    border:1px solid rgba(255,255,255,.25);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+    animation:ticketFloat 3s infinite;
+}
+
+@keyframes ticketFloat{
+    50%{
+        transform:translateY(-8px) rotate(3deg);
+    }
+}
+
+.ticket-info h3{
+    font-size:21px;
+    margin-top:22px;
+}
+
+.ticket-info p{
+    color:rgba(255,255,255,.78);
+    font-size:11px;
+    line-height:2;
+    margin-top:9px;
+}
+
+.steps{
+    margin-top:25px;
+}
+
+.step{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    color:rgba(255,255,255,.8);
+    font-size:10px;
+    margin-top:12px;
+}
+
+.step span{
+    width:27px;
+    height:27px;
+    border-radius:9px;
+    background:rgba(255,255,255,.12);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.ticket-form{
+    padding:30px;
+    border-radius:27px;
+    background:#fff;
+    border:1px solid #dfe9f5;
+    box-shadow:0 15px 45px rgba(42,73,110,.07);
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.field{
+    margin-bottom:15px;
+}
+
+.field label{
+    display:block;
+    color:#445a74;
+    font-size:10px;
+    font-weight:900;
+    margin-bottom:7px;
+}
+
+.field input,
+.field textarea,
+.field select{
+    width:100%;
+    padding:13px;
+    border:1px solid #dce7f3;
+    background:#f9fbfe;
+    border-radius:12px;
+    color:#253b57;
+    outline:none;
+    font-family:inherit;
+    font-size:11px;
+    transition:.3s;
+}
+
+.field textarea{
+    min-height:165px;
+    resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+    border-color:#6aa9ff;
+    background:#fff;
+    box-shadow:0 0 0 4px rgba(22,119,255,.07);
+}
+
+.ticket-history{
+    max-width:1000px;
+    margin:25px auto 0;
+}
+
+.ticket-history-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+
+.ticket-history-title h3{
+    font-size:16px;
+}
+
+.ticket-history-title span{
+    color:#718197;
+    font-size:9px;
+}
+
+.ticket-list{
+    display:grid;
+    gap:12px;
+}
+
+.ticket-card{
+    background:#fff;
+    border:1px solid #dfe9f5;
+    border-radius:18px;
+    padding:17px;
+    box-shadow:0 10px 30px rgba(42,73,110,.05);
+    animation:pageIn .35s ease;
+}
+
+.ticket-card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.ticket-card-subject{
+    font-weight:900;
+    font-size:12px;
+}
+
+.ticket-status{
+    color:#087a51;
+    background:#eafaf4;
+    border:1px solid #c9f1e0;
+    padding:5px 8px;
+    border-radius:8px;
+    font-size:8px;
+    font-weight:900;
+}
+
+.ticket-card-text{
+    color:#718197;
+    font-size:10px;
+    line-height:1.9;
+    margin-top:9px;
+}
+
+.ticket-card-bottom{
+    color:#9aa8b9;
+    font-size:8px;
+    margin-top:10px;
+}
+
+.about{
+    max-width:950px;
+    margin:auto;
+    padding-bottom:90px;
+}
+
+.about-card{
+    padding:40px;
+    border-radius:30px;
+    background:#fff;
+    border:1px solid #dfe9f5;
+    box-shadow:0 18px 55px rgba(42,73,110,.07);
+    position:relative;
+    overflow:hidden;
+}
+
+.about-card:after{
+    content:"";
+    position:absolute;
+    width:260px;
+    height:260px;
+    border-radius:50%;
+    background:#1677ff;
+    filter:blur(90px);
+    opacity:.07;
+    left:-120px;
+    bottom:-150px;
+}
+
+.about-card h3{
+    font-size:25px;
+}
+
+.about-card p{
+    color:#718197;
+    font-size:12px;
+    line-height:2.2;
+    margin-top:13px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:13px;
+    margin-top:28px;
+}
+
+.stat{
+    padding:20px;
+    border-radius:17px;
+    background:#f7faff;
+    border:1px solid #e1eaf5;
+    text-align:center;
+}
+
+.stat strong{
+    display:block;
+    color:#1677ff;
+    font-size:24px;
+}
+
+.stat span{
+    color:#718197;
+    font-size:9px;
+}
+
+.order-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    background:rgba(21,43,70,.35);
+    backdrop-filter:blur(12px);
+}
+
+.order-modal.show{
+    display:flex;
+}
+
+.order-box{
+    width:100%;
+    max-width:430px;
+    padding:30px;
+    background:#fff;
+    border:1px solid #dce8f5;
+    border-radius:27px;
+    box-shadow:0 30px 100px rgba(30,61,100,.22);
+    animation:modalIn .35s ease;
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:translateY(30px) scale(.95);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.modal-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.modal-head h2{
+    font-size:21px;
+}
+
+.close{
+    width:35px;
+    height:35px;
+    border:0;
+    border-radius:10px;
+    background:#eef4fb;
+    color:#41556d;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.order-product{
+    padding:18px;
+    border-radius:16px;
+    background:#f7faff;
+    border:1px solid #dfebf7;
+    margin-bottom:18px;
+}
+
+.order-product-name{
+    font-size:14px;
+    font-weight:900;
+}
+
+.order-product-price{
+    color:#1677ff;
+    font-size:18px;
+    font-weight:900;
+    margin-top:5px;
+}
+
+.order-info{
+    color:#718197;
+    font-size:10px;
+    line-height:1.9;
+    margin-bottom:18px;
+}
+
+.toast{
+    position:fixed;
+    left:25px;
+    bottom:25px;
+    z-index:2000;
+    padding:14px 19px;
+    border-radius:13px;
+    background:#10213b;
+    color:#fff;
+    box-shadow:0 18px 45px rgba(20,45,75,.22);
+    font-size:10px;
+    transform:translateY(100px);
+    opacity:0;
+    transition:.4s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+footer{
+    border-top:1px solid #dfe8f3;
+    background:#fff;
+    padding:28px 0;
+}
+
+.footer{
+    width:min(1180px,calc(100% - 30px));
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:#7a899d;
+    font-size:9px;
+    gap:15px;
+}
+
+.footer strong{
+    color:#1c304b;
+}
+
+@media(max-width:1000px){
+
+    .menu{
+        display:none;
+    }
+
+    .mobile-menu-btn{
+        display:block;
+    }
+
+    .home{
+        grid-template-columns:1fr;
+        text-align:center;
+        gap:25px;
+        padding-top:35px;
+    }
+
+    .home-text{
+        order:1;
+    }
+
+    .home-visual{
+        order:2;
+    }
+
+    .home-desc{
+        margin:auto;
+    }
+
+    .home-actions{
+        justify-content:center;
+    }
+
+    .feature-layout{
+        grid-template-columns:1fr;
+    }
+
+    .feature-side{
+        position:static;
+    }
+
+    .ticket-system{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:650px){
+
+    .header{
+        top:8px;
+        padding:0 9px;
+    }
+
+    .navbar{
+        height:62px;
+        border-radius:17px;
+    }
+
+    .brand-name{
+        font-size:13px;
+    }
+
+    .logo{
+        width:40px;
+        height:40px;
+    }
+
+    .page{
+        padding-top:90px;
+    }
+
+    .home h1{
+        font-size:43px;
+    }
+
+    .home-desc{
+        font-size:12px;
+    }
+
+    .hero-stage{
+        height:410px;
+    }
+
+    .c1{
+        width:320px;
+        height:320px;
+    }
+
+    .c2{
+        width:255px;
+        height:255px;
+    }
+
+    .c3{
+        width:190px;
+        height:190px;
+    }
+
+    .hero-card{
+        width:260px;
+        min-height:325px;
+    }
+
+    .title h2{
+        font-size:30px;
+    }
+
+    .feature-grid,
+    .store-grid{
+        grid-template-columns:1fr;
+    }
+
+    .store-banner{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .form-row{
+        grid-template-columns:1fr;
+    }
+
+    .ticket-form{
+        padding:22px;
+    }
+
+    .about-card{
+        padding:25px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .footer{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .toast{
+        left:12px;
+        right:12px;
+        bottom:12px;
+        text-align:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg">
+    <div class="bg-grid"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+</div>
+
+<div class="particles" id="particles"></div>
+
+<header class="header" id="header">
+
+    <nav class="navbar">
+
+        <div class="brand" onclick="go('home')">
+
+            <div class="logo">🤖</div>
+
+            <div class="brand-name">
+                ربات میکر <span>امیر</span>
+            </div>
+
+        </div>
+
+        <div class="menu">
+
+            <button data-page="home"
+                    onclick="go('home')">
+                خانه
+            </button>
+
+            <button data-page="features"
+                    onclick="go('features')">
+                امکانات
+            </button>
+
+            <button data-page="store"
+                    onclick="go('store')">
+                فروشگاه
+            </button>
+
+            <button data-page="ticket"
+                    onclick="go('ticket')">
+                تیکت
+            </button>
+
+            <button data-page="about"
+                    onclick="go('about')">
+                درباره ما
+            </button>
+
+        </div>
+
+        <button
+            class="mobile-menu-btn"
+            id="mobileMenuBtn"
+            onclick="toggleMobileMenu()"
+            type="button">
+            ☰
+        </button>
+
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+
+        <button data-page="home"
+                onclick="go('home')">
+            🏠 خانه
+        </button>
+
+        <button data-page="features"
+                onclick="go('features')">
+            ⚡ امکانات
+        </button>
+
+        <button data-page="store"
+                onclick="go('store')">
+            🛒 فروشگاه
+        </button>
+
+        <button data-page="ticket"
+                onclick="go('ticket')">
+            🎫 تیکت
+        </button>
+
+        <button data-page="about"
+                onclick="go('about')">
+            ℹ️ درباره ما
+        </button>
+
+    </div>
+
+</header>
+
+<section class="page active" id="page-home">
+
+    <div class="container home">
+
+        <div class="home-text">
+
+            <div class="badge">
+                <i></i>
+                پلتفرم خدمات حرفه‌ای ربات روبیکا
+            </div>
+
+            <h1>
+                رباتت رو
+                <br>
+                <span class="gradient-text">
+                    حرفه ای بساز
+                </span>
+            </h1>
+
+            <p class="home-desc">
+                ساخت ربات روبیکا، مدیریت گروه،
+                تبلیغات، ربات‌های آماده و پشتیبانی
+                حرفه‌ای در ربات میکر امیر
+            </p>
+
+            <div class="home-actions">
+
+                <button class="btn btn-blue"
+                        onclick="contactForBot()"
+                        type="button">
+                    🤖 سفارش ساخت ربات
+                </button>
+
+                <button class="btn btn-light"
+                        onclick="go('store')"
+                        type="button">
+                    🛒 مشاهده فروشگاه
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="home-visual">
+
+            <div class="hero-stage">
+
+                <div class="hero-circle c1"></div>
+                <div class="hero-circle c2"></div>
+                <div class="hero-circle c3"></div>
+
+                <div class="hero-card">
+
+                    <div class="hero-top">
+                        <span>AMIR BOT MAKER</span>
+                        <span>01</span>
+                    </div>
+
+                    <div class="hero-logo">
+                        🤖
+                    </div>
+
+                    <h3>
+                        ربات میکر امیر
+                    </h3>
+
+                    <div class="online">
+                        ● ONLINE SYSTEM
+                    </div>
+
+                    <div class="hero-list">
+
+                        <div class="hero-item">
+                            ⚡ ساخت ربات اختصاصی
+                        </div>
+
+                        <div class="hero-item">
+                            🛡️ مدیریت گروه
+                        </div>
+
+                        <div class="hero-item">
+                            📢 خدمات تبلیغاتی
+                        </div>
+
+                        <div class="hero-item">
+                            🎫 پشتیبانی حرفه‌ای
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="page" id="page-features">
+
+    <div class="container">
+
+        <div class="title">
+
+            <small>FEATURES</small>
+
+            <h2>
+                امکانات
+            </h2>
+
+            <p>
+                سرویس‌های حرفه‌ای ربات میکر امیر
+            </p>
+
+        </div>
+
+        <div class="feature-layout">
+
+            <aside class="feature-side">
+
+                <div class="side-line"></div>
+
+                <h3>
+                    🤖 ربات جبار
+                </h3>
+
+                <p>
+                    ربات جبار مدیریت گروه کامل و حرفه‌ای
+                    برای مدیریت بهتر گروه‌های روبیکا
+                </p>
+
+                <div class="bot-box">
+
+                    <strong>
+                        JABBAR BOT
+                    </strong>
+
+                    <span>
+                        ربات مدیریت گروه
+                    </span>
+
+                    <a href="https://rubika.ir/amirtbpedit"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="bot-link">
+                        ورود به ربات جبار
+                    </a>
+
+                </div>
+
+            </aside>
+
+            <div class="feature-grid">
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        🤖
+                    </div>
+
+                    <h3>
+                        ساخت ربات روبیکا
+                    </h3>
+
+                    <p>
+                        ساخت ربات اختصاصی طبق نیاز شما
+                        توسط ربات میکر امیر
+                    </p>
+
+                </div>
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        🛡️
+                    </div>
+
+                    <h3>
+                        مدیریت گروه
+                    </h3>
+
+                    <p>
+                        طراحی و ساخت ربات‌های مدیریت
+                        گروه با امکانات حرفه‌ای
+                    </p>
+
+                </div>
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        ⚡
+                    </div>
+
+                    <h3>
+                        سرویس سریع
+                    </h3>
+
+                    <p>
+                        ثبت درخواست و ارتباط مستقیم
+                        با پشتیبانی
+                    </p>
+
+                </div>
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        🎫
+                    </div>
+
+                    <h3>
+                        سیستم تیکت
+                    </h3>
+
+                    <p>
+                        ارسال درخواست و پیگیری مشکلات
+                        از طریق سیستم تیکت
+                    </p>
+
+                </div>
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        📦
+                    </div>
+
+                    <h3>
+                        ربات آماده
+                    </h3>
+
+                    <p>
+                        دریافت ربات‌های آماده در قالب
+                        فایل JSON
+                    </p>
+
+                </div>
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        💬
+                    </div>
+
+                    <h3>
+                        ارتباط مستقیم
+                    </h3>
+
+                    <p>
+                        برای سفارش ساخت ربات به
+                        @amirtbpedit پیام بدهید
+                    </p>
+
+                </div>
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        🔵
+                    </div>
+
+                    <h3>
+                        ربات معمولی
+                    </h3>
+
+                    <p>
+                        ساخت ربات معمولی با قیمت
+                        ۶۰,۰۰۰ تومان
+                    </p>
+
+                    <button class="btn btn-blue"
+                            style="margin-top:15px"
+                            onclick="contactForBot()"
+                            type="button">
+                        سفارش
+                    </button>
+
+                </div>
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        👑
+                    </div>
+
+                    <h3>
+                        ربات مدیریت گروه
+                    </h3>
+
+                    <p>
+                        ساخت ربات مدیریت گروه حرفه‌ای
+                        با قیمت ۱۹۰,۰۰۰ تومان
+                    </p>
+
+                    <button class="btn btn-blue"
+                            style="margin-top:15px"
+                            onclick="contactForBot()"
+                            type="button">
+                        سفارش
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="page" id="page-store">
+
+    <div class="container store">
+
+        <div class="title">
+
+            <small>
+                AMIR STORE
+            </small>
+
+            <h2>
+                فروشگاه
+            </h2>
+
+            <p>
+                خدمات تبلیغاتی و محصولات آماده
+            </p>
+
+        </div>
+
+        <div class="store-banner">
+
+            <div>
+
+                <strong>
+                    🛒 فروشگاه ربات میکر امیر
+                </strong>
+
+                <p>
+                    محصولات و سرویس‌های موجود برای سفارش
+                </p>
+
+            </div>
+
+            <span class="active-label">
+                ● فعال
+            </span>
+
+        </div>
+
+        <div class="store-grid">
+
+            <div class="product product-blue">
+
+                <div class="product-icon">
+                    📢
+                </div>
+
+                <span class="product-tag">
+                    ADS / GROUP
+                </span>
+
+                <h3>
+                    ارسال تبلیغات برای گروه‌ها
+                </h3>
+
+                <p>
+                    ارسال تبلیغات برای گروه‌های روبیکا
+                </p>
+
+                <div class="price">
+                    ۵۰,۰۰۰
+                    <small>
+                        تومان
+                    </small>
+                </div>
+
+                <ul>
+                    <li>
+                        ارسال تبلیغات
+                    </li>
+
+                    <li>
+                        سرویس تبلیغاتی اختصاصی
+                    </li>
+                </ul>
+
+                <button class="btn btn-blue"
+                        onclick="buy('ارسال تبلیغات برای گروه‌ها','۵۰,۰۰۰ تومان')"
+                        type="button">
+                    سفارش سرویس
+                </button>
+
+            </div>
+
+            <div class="product product-purple">
+
+                <div class="product-icon">
+                    💬
+                </div>
+
+                <span class="product-tag">
+                    ADS / PV
+                </span>
+
+                <h3>
+                    ارسال تبلیغات برای PV
+                </h3>
+
+                <p>
+                    سرویس ارسال تبلیغات برای پیام‌های خصوصی
+                </p>
+
+                <div class="price">
+                    ۱۰۰,۰۰۰
+                    <small>
+                        تومان
+                    </small>
+                </div>
+
+                <ul>
+
+                    <li>
+                        ارسال تبلیغات PV
+                    </li>
+
+                    <li>
+                        سرویس تبلیغاتی
+                    </li>
+
+                </ul>
+
+                <button class="btn"
+                        style="background:#8757ff;color:#fff"
+                        onclick="buy('ارسال تبلیغات برای PV','۱۰۰,۰۰۰ تومان')"
+                        type="button">
+                    سفارش سرویس
+                </button>
+
+            </div>
+
+            <div class="product product-green">
+
+                <div class="product-icon">
+                    📦
+                </div>
+
+                <span class="product-tag">
+                    DIGITAL / JSON
+                </span>
+
+                <h3>
+                    ربات آماده JSON
+                </h3>
+
+                <p>
+                    دریافت ربات آماده در قالب فایل JSON
+                </p>
+
+                <div class="price">
+                    ۴۰,۰۰۰
+                    <small>
+                        تومان
+                    </small>
+                </div>
+
+                <ul>
+
+                    <li>
+                        فایل JSON آماده
+                    </li>
+
+                    <li>
+                        محصول دیجیتال
+                    </li>
+
+                    <li>
+                        قابل استفاده در پروژه
+                    </li>
+
+                </ul>
+
+                <button class="btn"
+                        style="background:#11b979;color:#fff"
+                        onclick="buy('ربات آماده JSON','۴۰,۰۰۰ تومان')"
+                        type="button">
+                    خرید فایل
+                </button>
+
+            </div>
+
+            <div class="product product-gold">
+
+                <div class="product-icon">
+                    👑
+                </div>
+
+                <span class="product-tag">
+                    VIP SUPPORT
+                </span>
+
+                <h3>
+                    اشتراک VIP
+                </h3>
+
+                <p>
+                    پشتیبانی اختصاصی همراه با حذف تبلیغات
+                </p>
+
+                <div class="price">
+                    ۱۰۰,۰۰۰
+                    <small>
+                        تومان
+                    </small>
+                </div>
+
+                <ul>
+
+                    <li>
+                        اضافه کردن پشتیبانی
+                    </li>
+
+                    <li>
+                        حذف تبلیغات در گروه
+                    </li>
+
+                    <li>
+                        حذف تبلیغات در ربات
+                    </li>
+
+                </ul>
+
+                <button class="btn"
+                        style="background:linear-gradient(135deg,#e2a900,#ffc928);color:#fff"
+                        onclick="buy('اشتراک VIP','۱۰۰,۰۰۰ تومان')"
+                        type="button">
+                    سفارش VIP
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="page ticket-page" id="page-ticket">
+
+    <div class="container">
+
+        <div class="title">
+
+            <small>
+                SUPPORT CENTER
+            </small>
+
+            <h2>
+                مرکز پشتیبانی
+            </h2>
+
+            <p>
+                درخواست خود را از طریق تیکت ارسال کنید
+            </p>
+
+        </div>
+
+        <div class="ticket-system">
+
+            <div class="ticket-info">
+
+                <div class="ticket-icon">
+                    🎫
+                </div>
+
+                <h3>
+                    ارسال تیکت
+                </h3>
+
+                <p>
+                    برای مشکلات، سفارش‌ها و سوالات خود
+                    درخواست پشتیبانی ارسال کنید.
+                </p>
+
+                <div class="steps">
+
+                    <div class="step">
+                        <span>۱</span>
+                        اطلاعات را وارد کن
+                    </div>
+
+                    <div class="step">
+                        <span>۲</span>
+                        موضوع را انتخاب کن
+                    </div>
+
+                    <div class="step">
+                        <span>۳</span>
+                        تیکت را ارسال کن
+                    </div>
+
+                </div>
+
+                <div style="
+                    margin-top:25px;
+                    padding:14px;
+                    border-radius:14px;
+                    background:rgba(255,255,255,.12);
+                    border:1px solid rgba(255,255,255,.18);
+                    font-size:10px;
+                    line-height:2;
+                    position:relative;
+                    z-index:2;
+                ">
+                    🕐 ساعت کاری پشتیبانی:<br>
+                    ۱ ظهر تا ۱۰ شب<br>
+                    شنبه تا پنج‌شنبه
+                </div>
+
+            </div>
+
+            <div class="ticket-form">
+
+                <div style="
+                    text-align:center;
+                    padding:10px 5px 5px;
+                ">
+
+                    <div style="
+                        font-size:42px;
+                        margin-bottom:10px;
+                    ">
+                        🎫
+                    </div>
+
+                    <h3 style="
+                        font-size:20px;
+                        color:#12233d;
+                        margin-bottom:10px;
+                    ">
+                        ثبت تیکت پشتیبانی
+                    </h3>
+
+                    <p style="
+                        color:#718197;
+                        font-size:11px;
+                        line-height:2;
+                        margin-bottom:20px;
+                    ">
+                        برای ثبت تیکت روی دکمه زیر بزنید.
+                        فرم رسمی پشتیبانی باز می‌شود و اطلاعات
+                        تیکت شما در سیستم پشتیبانی ثبت خواهد شد.
+                    </p>
+
+                    <div style="
+                        padding:15px;
+                        margin-bottom:18px;
+                        border-radius:15px;
+                        background:#f7faff;
+                        border:1px solid #dfebf7;
+                        color:#60738c;
+                        font-size:10px;
+                        line-height:2;
+                    ">
+                        🕐 ساعت کاری پشتیبانی
+                        <br>
+                        <strong style="color:#1677ff">
+                            ۱ ظهر تا ۱۰ شب
+                        </strong>
+                        <br>
+                        شنبه تا پنج‌شنبه
+                    </div>
+
+                    <button
+                        class="btn btn-blue"
+                        style="width:100%;font-size:12px;padding:15px"
+                        onclick="openTicketForm()"
+                        type="button">
+                        🎫 ثبت تیکت
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="ticket-history">
+
+            <div class="ticket-history-title">
+
+                <h3>
+                    🎫 تیکت‌های ثبت‌شده
+                </h3>
+
+                <span>
+                    ثبت تیکت از طریق فرم پشتیبانی
+                </span>
+
+            </div>
+
+            <div
+                class="ticket-list"
+                id="ticketList">
+
+                <div class="ticket-card">
+
+                    <div class="ticket-card-text">
+                        برای ثبت تیکت جدید از فرم پشتیبانی استفاده کنید.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="page" id="page-about">
+
+    <div class="container">
+
+        <div class="title">
+
+            <small>
+                AMIR BOT MAKER
+            </small>
+
+            <h2>
+                درباره ما
+            </h2>
+
+            <p>
+                ربات میکر امیر
+            </p>
+
+        </div>
+
+        <div class="about">
+
+            <div class="about-card">
+
+                <h3>
+                    🤖 ربات میکر امیر
+                </h3>
+
+                <p>
+                    ربات میکر امیر مجموعه‌ای برای ارائه
+                    خدمات مربوط به ربات‌های روبیکا،
+                    مدیریت گروه، تبلیغات و ربات‌های آماده است.
+                </p>
+
+                <p>
+                    برای سفارش ساخت ربات اختصاصی،
+                    مستقیماً به
+                    <b style="color:#1677ff">
+                        @amirtbpedit
+                    </b>
+                    پیام دهید.
+                </p>
+
+                <div class="stats">
+
+                    <div class="stat">
+
+                        <strong>
+                            🤖
+                        </strong>
+
+                        <span>
+                            خدمات ربات
+                        </span>
+
+                    </div>
+
+                    <div class="stat">
+
+                        <strong>
+                            ⚡
+                        </strong>
+
+                        <span>
+                            سرویس سریع
+                        </span>
+
+                    </div>
+
+                    <div class="stat">
+
+                        <strong>
+                            🎫
+                        </strong>
+
+                        <span>
+                            پشتیبانی
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<div class="order-modal" id="orderModal">
+
+    <div class="order-box">
+
+        <div class="modal-head">
+
+            <h2>
+                🛒 ثبت سفارش
+            </h2>
+
+            <button
+                class="close"
+                onclick="closeOrder()"
+                type="button">
+                ×
+            </button>
+
+        </div>
+
+        <div class="order-product">
+
+            <div
+                class="order-product-name"
+                id="orderName">
+                محصول
+            </div>
+
+            <div
+                class="order-product-price"
+                id="orderPrice">
+                ۰ تومان
+            </div>
+
+        </div>
+
+        <p class="order-info">
+            برای تکمیل سفارش، روی دکمه زیر بزنید
+            تا به پشتیبانی ربات میکر امیر در روبیکا
+            منتقل شوید.
+        </p>
+
+        <button
+            class="btn btn-blue"
+            style="width:100%"
+            onclick="continueOrder()"
+            type="button">
+            💬 ادامه در روبیکا
+        </button>
+
+    </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer id="footer">
+
+    <div class="footer">
+
+        <strong>
+            🤖 ربات میکر امیر
+        </strong>
+
+        <span>
+            رباتت رو حرفه ای بساز
+        </span>
+
+        <span>
+            © ۱۴۰۵
+        </span>
+
+    </div>
+
+</footer>
+
+<script>
+
+const particles =
+    document.getElementById("particles");
+
+for(let i=0;i<35;i++){
+
+    const p=document.createElement("div");
+
+    p.className="particle";
+
+    p.style.left=
+        Math.random()*100+"%";
+
+    p.style.animationDuration=
+        (7+Math.random()*13)+"s";
+
+    p.style.animationDelay=
+        (-Math.random()*15)+"s";
+
+    particles.appendChild(p);
+}
+
+const allowedPages=[
+    "home",
+    "features",
+    "store",
+    "ticket",
+    "about"
+];
+
+function go(page){
+
+    if(!allowedPages.includes(page)){
+        page="home";
+    }
+
+    window.location.hash=page;
+
+    renderPage(page);
+
+    closeMobileMenu();
+}
+
+function renderPage(page){
+
+    if(!allowedPages.includes(page)){
+        page="home";
+    }
+
+    document.querySelectorAll(".page")
+        .forEach(section=>{
+            section.classList.remove("active");
+        });
+
+    const target=
+        document.getElementById("page-"+page);
+
+    if(!target){
+        return;
+    }
+
+    target.classList.add("active");
+
+    document.querySelectorAll(".menu button")
+        .forEach(button=>{
+
+            button.classList.toggle(
+                "active",
+                button.dataset.page===page
+            );
+
+        });
+
+    document.querySelectorAll(".mobile-menu button")
+        .forEach(button=>{
+
+            button.classList.toggle(
+                "active",
+                button.dataset.page===page
+            );
+
+        });
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+function handleHash(){
+
+    let page=
+        window.location.hash
+        .replace("#","")
+        .trim();
+
+    if(!allowedPages.includes(page)){
+        page="home";
+    }
+
+    renderPage(page);
+}
+
+window.addEventListener(
+    "hashchange",
+    handleHash
+);
+
+function toggleMobileMenu(){
+
+    const menu=
+        document.getElementById("mobileMenu");
+
+    menu.classList.toggle("show");
+
+}
+
+function closeMobileMenu(){
+
+    document.getElementById("mobileMenu")
+        .classList.remove("show");
+
+}
+
+function contactForBot(){
+
+    window.open(
+        "https://rubika.ir/amirtbpedit",
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+    showToast(
+        "برای سفارش به @amirtbpedit پیام دهید"
+    );
+}
+
+let selectedOrder={
+    name:"",
+    price:""
+};
+
+function buy(name,price){
+
+    selectedOrder={
+        name:name,
+        price:price
+    };
+
+    document.getElementById("orderName")
+        .textContent=name;
+
+    document.getElementById("orderPrice")
+        .textContent=price;
+
+    document.getElementById("orderModal")
+        .classList.add("show");
+
+}
+
+function closeOrder(){
+
+    document.getElementById("orderModal")
+        .classList.remove("show");
+
+}
+
+function continueOrder(){
+
+    window.open(
+        "https://rubika.ir/amirtbpedit",
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+    closeOrder();
+
+    showToast(
+        "برای تکمیل سفارش به @amirtbpedit پیام دهید"
+    );
+
+}
+
+/* =========================
+   BASEROW TICKET
+========================= */
+
+const baserowTicketForm=
+    "https://baserow.io/form/wiwpW6_52eN4Z8urH72t2idyozPhsuxyQWAPKjENrro";
+
+function openTicketForm(){
+
+    window.open(
+        baserowTicketForm,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+    showToast(
+        "تیکت شما ثبت شد؛ به‌زودی در روبیکای شما پاسخ داده خواهد شد"
+    );
+
+}
+
+function renderTickets(){
+
+    const list=
+        document.getElementById("ticketList");
+
+    if(!list){
+        return;
+    }
+
+    list.innerHTML=`
+        <div class="ticket-card">
+            <div class="ticket-card-text">
+                برای ثبت تیکت جدید از فرم پشتیبانی استفاده کنید.
+            </div>
+            <div class="ticket-card-bottom">
+                🕐 ساعت کاری پشتیبانی: ۱ ظهر تا ۱۰ شب، شنبه تا پنج‌شنبه
+            </div>
+        </div>
+    `;
+
+}
+
+document.getElementById("orderModal")
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(event.target===this){
+                closeOrder();
+            }
+
+        }
+    );
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key==="Escape"){
+            closeOrder();
+            closeMobileMenu();
+        }
+
+    }
+);
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const menu=
+            document.getElementById("mobileMenu");
+
+        const button=
+            document.getElementById("mobileMenuBtn");
+
+        if(
+            menu.classList.contains("show") &&
+            !menu.contains(event.target) &&
+            !button.contains(event.target)
+        ){
+
+            closeMobileMenu();
+
+        }
+
+    }
+);
+
+let toastTimer=null;
+
+function showToast(message){
+
+    const toast=
+        document.getElementById("toast");
+
+    toast.textContent=message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer=setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },3000);
+
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        if(!window.location.hash){
+
+            history.replaceState(
+                null,
+                "",
+                "#home"
+            );
+
+        }
+
+        handleHash();
+
+        renderTickets();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
